@@ -10,6 +10,7 @@ export class MovieListComponent implements OnInit {
   modalRef: BsModalRef;
   movie: Movie = new Movie();
   movies: any;
+  img: File;
   errorMsg: ErrorMsg = new ErrorMsg();
 
   constructor(private modalService: BsModalService, private movieService: MovieService) { }
@@ -27,6 +28,11 @@ export class MovieListComponent implements OnInit {
     })
   }
 
+  onUpdate(){
+    
+  }
+
+
 
   onSave() {
     this.errorMsg.name = this.errorMsg.year = this.errorMsg.poster = '';
@@ -34,18 +40,30 @@ export class MovieListComponent implements OnInit {
     !this.movie.year ? this.errorMsg.year = "Movie needs a year!" : '';
     !this.movie.poster ? this.errorMsg.poster = "Movie needs a link to poster image!" : '';
 
-    if (!this.movie.name || !this.movie.year || !this.movie.poster) {
+    if (!this.movie.name || !this.movie.year || !this.img) {
       return;
     }
-
-    this.movieService.post(this.movie).subscribe(res => {
-      this.getMovie();
-      this.modalRef.hide();
-      console.log(res)
-    }, error => {
-      console.log(error)
-    }
-    )
+    function getBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+      });
+    };
+    let temp;
+    getBase64(<HTMLInputElement>document.getElementById('poster').files[0]).then(res => {
+      temp = res;
+      this.movie.poster = temp;
+      this.movieService.post(this.movie).subscribe(res => {
+        this.getMovie();
+        this.modalRef.hide();
+        console.log(res)
+      }, error => {
+        console.log(error)
+      })
+    })
+    
 
   }
 

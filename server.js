@@ -7,7 +7,7 @@ var db = mongo.connect("mongodb://localhost:27017/movies", function (err, res) {
   if (err) {
     console.log(err)
   } else {
-    console.log('Nos pudimos conectar a ' + db, +' + ' , res)
+    console.log('Nos pudimos conectar a ' + db, +' + ', res)
   }
 });
 
@@ -40,6 +40,12 @@ var MovieSchema = new Schema({
   poster: {
     type: String
   },
+  timesVoted: {
+    type: Number
+  },
+  Rating: {
+    type: Number
+  },
 }, {
   versionKey: false
 });
@@ -60,42 +66,58 @@ app.post("/api/NewMovie", function (req, res) {
 
 
 app.set("/api/UpdateMovie", function (req, res) {
-    var mod = new model(req.body);
-    model.findByIdAndUpdate(req.body._id, {name: req.body.name,year: req.body.year} ,function (err, data) {
-      if (err) {
-        res.send(err)
-      } else {
-        res.send({
-          data: "Updated Movie"
-        })
-      }
-    })
-  });
+  var mod = new model(req.body);
 
-
-  app.delete("/api/DeleteMovie", function (req, res) {
-    var mod = new model(req.body);
-    model.remove({_id: req.body.id},function (err) {
-      if (err) {
-        res.send(err)
-      } else {
-        res.send({
-          data: "Deleted Movie"
-        })
-      }
-    })
-  });
-
-  app.get("/api/getMovie", function (req, res) {
-    model.find({},function (err, data) {
-      if (err) {
-        res.send(err)
-      } else {
-        res.send(data)
-      }
-    })
-  });
-
-  app.listen(8080,function(){
-      console.log('Movies is tuned to port 8080! ;) ')
+  model.findByIdAndUpdate(req.body._id, {
+    name: req.body.name,
+    year: req.body.year
+  }, function (err, data) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send({
+        data: "Updated Movie"
+      })
+    }
   })
+});
+
+
+app.delete("/api/DeleteMovie", function (req, res) {
+  var mod = new model(req.body);
+  model.remove({
+    _id: req.body.id
+  }, function (err) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send({
+        data: "Deleted Movie"
+      })
+    }
+  })
+});
+
+app.get("/api/getMovie", function (req, res) {
+  model.find({}, function (err, data) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(data)
+    }
+  })
+});
+
+app.get("/api/getMovie/:id", async (request, response) => {
+  try {
+    var Movie = await MovieSchema.findById(request.params.id).exec();
+    response.send(Movie);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
+
+app.listen(8080, function () {
+  console.log('Movies is tuned to port 8080! ;) ')
+})
