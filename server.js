@@ -3,7 +3,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var mongo = require('mongoose');
 
-var db = mongo.connect(process.env.MONGOLAB_URI ||"mongodb://localhost/movies", function (err, res) {
+var db = mongo.connect(process.env.MONGOLAB_CYAN_URI ||"mongodb://localhost/movies", function (err, res) {
   if (err) {
     console.log(err)
   } else {
@@ -96,6 +96,6 @@ app.set("/api/UpdateMovie", function (req, res) {
     })
   });
 
-  app.listen(8080,function(){
+  app.listen(process.env.PORT || 8080,function(){
       console.log('Movies is tuned to port 8080! ;) ')
   })

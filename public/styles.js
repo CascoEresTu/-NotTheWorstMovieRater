@@ -639,9 +639,9 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\k_k_r\Documents\pelis\-NotTheWorstMovieRater\node_modules\bootstrap\dist\css\bootstrap.min.css */"./node_modules/bootstrap/dist/css/bootstrap.min.css");
-__webpack_require__(/*! C:\Users\k_k_r\Documents\pelis\-NotTheWorstMovieRater\node_modules\ngx-bootstrap\datepicker\bs-datepicker.css */"./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css");
-module.exports = __webpack_require__(/*! C:\Users\k_k_r\Documents\pelis\-NotTheWorstMovieRater\src\styles.css */"./src/styles.css");
+__webpack_require__(/*! C:\Users\Cabrera\Desktop\angular\-NotTheWorstMovieRater\node_modules\bootstrap\dist\css\bootstrap.min.css */"./node_modules/bootstrap/dist/css/bootstrap.min.css");
+__webpack_require__(/*! C:\Users\Cabrera\Desktop\angular\-NotTheWorstMovieRater\node_modules\ngx-bootstrap\datepicker\bs-datepicker.css */"./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css");
+module.exports = __webpack_require__(/*! C:\Users\Cabrera\Desktop\angular\-NotTheWorstMovieRater\src\styles.css */"./src/styles.css");
 
 
 /***/ })
