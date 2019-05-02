@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class MovieService {
 
   constructor(private http: HttpClient) {}
-  baseUrl = 'https://intense-fortress-36753.herokuapp.com/'
+  baseUrl = 'https://intense-fortress-36753.herokuapp.com'
 
   get(){
     return this.http.get(this.baseUrl + '/api/getMovie');
