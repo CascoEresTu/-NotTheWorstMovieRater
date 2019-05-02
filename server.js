@@ -37,6 +37,9 @@ var MovieSchema = new Schema({
   year: {
     type: Number
   },
+  poster: {
+    type: String
+  },
 }, {
   versionKey: false
 });
@@ -56,7 +59,7 @@ app.post("/api/NewMovie", function (req, res) {
 });
 
 
-app.post("/api/UpdateMovie", function (req, res) {
+app.set("/api/UpdateMovie", function (req, res) {
     var mod = new model(req.body);
     model.findByIdAndUpdate(req.body._id, {name: req.body.name,year: req.body.year} ,function (err, data) {
       if (err) {
@@ -70,7 +73,7 @@ app.post("/api/UpdateMovie", function (req, res) {
   });
 
 
-  app.post("/api/DeleteMovie", function (req, res) {
+  app.delete("/api/DeleteMovie", function (req, res) {
     var mod = new model(req.body);
     model.remove({_id: req.body.id},function (err) {
       if (err) {
