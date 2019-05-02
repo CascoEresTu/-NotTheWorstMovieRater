@@ -7,7 +7,7 @@ var db = mongo.connect(process.env.MONGOLAB_CYAN_URI ||"mongodb://localhost/movi
   if (err) {
     console.log(err)
   } else {
-    console.log('Nos pudimos conectar a ' + db, +' + ' , res)
+    console.log('Nos pudimos conectar a ' + db, +' + ', res)
   }
 });
 
@@ -41,6 +41,12 @@ var MovieSchema = new Schema({
   poster: {
     type: String
   },
+  timesVoted: {
+    type: Number
+  },
+  Rating: {
+    type: Number
+  },
 }, {
   versionKey: false
 });
@@ -61,41 +67,37 @@ app.post("/api/NewMovie", function (req, res) {
 
 
 app.set("/api/UpdateMovie", function (req, res) {
-    var mod = new model(req.body);
-    model.findByIdAndUpdate(req.body._id, {name: req.body.name,year: req.body.year} ,function (err, data) {
-      if (err) {
-        res.send(err)
-      } else {
-        res.send({
-          data: "Updated Movie"
-        })
-      }
-    })
-  });
+  var mod = new model(req.body);
+
+  model.findByIdAndUpdate(req.body._id, {
+    name: req.body.name,
+    year: req.body.year
+  }, function (err, data) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send({
+        data: "Updated Movie"
+      })
+    }
+  })
+});
 
 
-  app.delete("/api/DeleteMovie", function (req, res) {
-    var mod = new model(req.body);
-    model.remove({_id: req.body.id},function (err) {
-      if (err) {
-        res.send(err)
-      } else {
-        res.send({
-          data: "Deleted Movie"
-        })
-      }
-    })
-  });
-
-  app.get("/api/getMovie", function (req, res) {
-    model.find({},function (err, data) {
-      if (err) {
-        res.send(err)
-      } else {
-        res.send(data)
-      }
-    })
-  });
+app.delete("/api/DeleteMovie", function (req, res) {
+  var mod = new model(req.body);
+  model.remove({
+    _id: req.body.id
+  }, function (err) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send({
+        data: "Deleted Movie"
+      })
+    }
+  })
+});
 
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'))
