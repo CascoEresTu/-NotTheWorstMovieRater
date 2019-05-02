@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npm run build & concurrently --kill-others \"npm run serve-api\" \"npm run serve\"",
+    "start2": "npm run build & concurrently --kill-others \"npm run serve-api\" \"npm run serve\"",
+    "start": "node server.js",
     "serve": "ng serve --proxy-config proxy.conf.json",
     "dev": "concurrently \"nodemon ng serve\" \npm run server\"",
     "build": "ng build --output-path=public",
+    "postinstall": "ng build --aot --prod --output-path=public",
     "serve-api": "node server.js",
     "test": "ng test",
     "lint": "ng lint",

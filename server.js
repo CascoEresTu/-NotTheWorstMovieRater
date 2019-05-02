@@ -3,7 +3,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var mongo = require('mongoose');
 
-var db = mongo.connect(process.env.MONGOLAB_CYAN_URI ||"mongodb://localhost:27017/movies", function (err, res) {
+var db = mongo.connect(process.env.MONGOLAB_CYAN_URI ||"mongodb://localhost/movies", function (err, res) {
   if (err) {
     console.log(err)
   } else {
@@ -16,6 +16,7 @@ app.use(bodyParser());
 app.use(bodyParser.json({
   limit: '5mb'
 }));
+app.use(express.static(path.join(__dirname, '/public')));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -45,7 +46,7 @@ var MovieSchema = new Schema({
 });
 
 var model = mongo.model('movies', MovieSchema, 'movies');
-app.post("./api/NewMovie", function (req, res) {
+app.post("/api/NewMovie", function (req, res) {
   var mod = new model(req.body);
   mod.save(function (err, data) {
     if (err) {
@@ -59,7 +60,7 @@ app.post("./api/NewMovie", function (req, res) {
 });
 
 
-app.set("./api/UpdateMovie", function (req, res) {
+app.set("/api/UpdateMovie", function (req, res) {
     var mod = new model(req.body);
     model.findByIdAndUpdate(req.body._id, {name: req.body.name,year: req.body.year} ,function (err, data) {
       if (err) {
@@ -73,7 +74,7 @@ app.set("./api/UpdateMovie", function (req, res) {
   });
 
 
-  app.delete("./api/DeleteMovie", function (req, res) {
+  app.delete("/api/DeleteMovie", function (req, res) {
     var mod = new model(req.body);
     model.remove({_id: req.body.id},function (err) {
       if (err) {
@@ -86,7 +87,7 @@ app.set("./api/UpdateMovie", function (req, res) {
     })
   });
 
-  app.get("./api/getMovie", function (req, res) {
+  app.get("/api/getMovie", function (req, res) {
     model.find({},function (err, data) {
       if (err) {
         res.send(err)
@@ -95,6 +96,10 @@ app.set("./api/UpdateMovie", function (req, res) {
       }
     })
   });
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/index.html'))
+  })
 
   app.listen(process.env.PORT || 8080,function(){
       console.log('Movies is tuned to port 8080! ;) ')
