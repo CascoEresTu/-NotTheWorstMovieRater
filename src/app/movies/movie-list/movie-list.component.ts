@@ -52,7 +52,9 @@ export class MovieListComponent implements OnInit {
       });
     };
     let temp;
-    getBase64(<HTMLInputElement>document.getElementById('poster').files[0]).then(res => {
+    let BR = (<HTMLInputElement>document.getElementById('poster')).files[0];
+
+    getBase64(BR).then(res => {
       temp = res;
       this.movie.poster = temp;
       this.movieService.post(this.movie).subscribe(res => {
