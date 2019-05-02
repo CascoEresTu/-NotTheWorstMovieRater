@@ -5,6 +5,8 @@ import { MoviesRoutingModule } from './movies-routing.module';
 import { MovieListComponent } from './movie-list/movie-list.component';
 import {ModalModule} from 'ngx-bootstrap/modal'
 import {FormsModule} from '@angular/forms';
+import { StarRatingModule } from 'angular-star-rating';
+
 
 @NgModule({
   declarations: [MovieListComponent],
@@ -12,7 +14,8 @@ import {FormsModule} from '@angular/forms';
     CommonModule,
     MoviesRoutingModule,
     ModalModule.forRoot(),
-    FormsModule
+    FormsModule,
+    StarRatingModule
   ]
 })
 export class MoviesModule { }
