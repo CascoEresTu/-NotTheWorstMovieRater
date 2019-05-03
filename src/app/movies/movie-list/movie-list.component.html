@@ -9,7 +9,7 @@
          <div class="card card-cascade">
            <!-- Card image -->
            <div class="view view-cascade overlay">
-             <img class="card-img-top" src={{movie.poster}} alt="Card image cap">
+             <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/photo6.jpg" alt="Card image cap">
              <a>
                <div class="mask rgba-white-slight"></div>
              </a>
@@ -65,7 +65,7 @@
       <p class="text-danger">{{errorMsg.year}}</p>
 
       <label for= "poster" >Movie Poster</label>
-      <input type="file" class="form-control" name="poster" id="poster" [(ngModel)]="img" [(ngModel)]="movie.poster">
+      <input type="text" class="form-control" name="poster" id="poster" [(ngModel)]="img" [(ngModel)]="movie.poster">
       <p class="text-danger">{{errorMsg.poster}}</p>
 
       <button class="btn btn-primary" (click)="onSave()" >Save</button>

@@ -51,21 +51,21 @@ export class MovieListComponent implements OnInit {
         reader.onerror = (error) => reject(error);
       });
     };
-    let temp;
-    let BR = (<HTMLInputElement>document.getElementById('poster')).files[0];
+    //let temp;
+    //let BR = (<HTMLInputElement>document.getElementById('poster')).files[0];
 
-    getBase64(BR).then(res => {
-      temp = res;
-      this.movie.poster = temp;
-      this.movieService.post(this.movie).subscribe(res => {
-        this.getMovie();
-        this.modalRef.hide();
-        console.log(res)
-      }, error => {
-        console.log(error)
-      })
+    //getBase64(BR).then(res => {
+     // temp = res;
+     // this.movie.poster = temp;
+      
+    //})
+    this.movieService.post(this.movie).subscribe(res => {
+      this.getMovie();
+      this.modalRef.hide();
+      console.log(res)
+    }, error => {
+      console.log(error)
     })
-    
 
   }
 
